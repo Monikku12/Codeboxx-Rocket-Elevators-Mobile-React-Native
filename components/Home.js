@@ -1,15 +1,16 @@
-import { StyleSheet, Button, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import { Button } from "native-base";
 
 // Call API to get all elevator not in operation
-//rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list
+//   https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list
 
-https: function Home({ navigation }) {
+function Home({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <Text>Home Screen</Text>
-            <Button title="Elevator Status" onPress={() => navigation.navigate("ElevatorStatus")} />
-            <Button title="Logout" onPress={() => navigation.navigate("Login")} />
-            <Button title="Go back" onPress={() => navigation.goBack()} />
+            <Button onPress={() => navigation.navigate("ElevatorStatus")}>Elevator Status</Button>
+            <Button onPress={() => navigation.navigate("Login")}>Logout</Button>
+            <Button onPress={() => navigation.goBack()}>Back</Button>
         </View>
     );
 }

@@ -4,9 +4,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider, Box } from "native-base";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import ElevatorStatus from "./components/ElevatorStatus";
+import Login from "./SRC/components/Login";
+import Home from "./SRC/components/Home";
+import ElevatorStatus from "./SRC/components/ElevatorStatus";
 
 const Stack = createNativeStackNavigator();
 

@@ -4,6 +4,7 @@ import { Button } from "native-base";
 // Current elevator status
 
 function ElevatorStatus({ navigation }) {
+    
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <Text>Elevator Status Screen</Text>

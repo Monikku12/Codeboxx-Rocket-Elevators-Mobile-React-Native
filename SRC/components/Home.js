@@ -10,7 +10,7 @@ const getInactiveElevators = async (setInactiveElevators) => {
         const res = await axios.get("https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list");
 
         setInactiveElevators(res.data);
-        console.log(res.data);
+        console.log("api call done");
     } catch (error) {
         console.error(error);
     }
@@ -69,7 +69,7 @@ function Home({ navigation }) {
                                     </Text>
                                 </VStack>
                                 <Spacer />
-                                    <Button onPress={() => navigation.navigate("ElevatorStatus")}>Edit</Button>
+                                <Button onPress={() => { navigation.navigate("ElevatorStatus", { itemID: item.id }); }}>Edit</Button>
                             </HStack>
                         </Box>
                     )}

@@ -3,14 +3,12 @@ import { Button, Center, Box, Heading, FlatList, HStack, Avatar, VStack, Spacer 
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-// Call API to get all elevator not in operation
-//   https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list
+// Call API to get all inactive elevators
 const getInactiveElevators = async (setInactiveElevators) => {
     try {
         const res = await axios.get("https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list");
 
         setInactiveElevators(res.data);
-        console.log("api call done");
     } catch (error) {
         console.error(error);
     }
@@ -69,7 +67,7 @@ function Home({ navigation }) {
                                     </Text>
                                 </VStack>
                                 <Spacer />
-                                <Button onPress={() => { navigation.navigate("ElevatorStatus", { itemID: item.id }); }}>Edit</Button>
+                                <Button onPress={() => { navigation.navigate("ElevatorStatus", { elevatorID: item.id }); }}>Edit</Button>
                             </HStack>
                         </Box>
                     )}

@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
 import { Button, Box, FormControl, Center, Input, WarningOutlineIcon, Heading, VStack } from "native-base";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Call API for employee login
 // const getEmployeeEmail = async (email, setEmployeeEmail) => {
@@ -85,7 +84,7 @@ function Login({ navigation }) {
                             Please type a valid email.
                         </FormControl.ErrorMessage>
                     </FormControl>
-                    <Button mt="2" colorScheme="indigo" onPress={onSubmit}>
+                    <Button onPress={onSubmit}>
                         {/* <Button mt="2" colorScheme="indigo" onPress={() => navigation.navigate("Home")}> */}
                         Sign in
                     </Button>

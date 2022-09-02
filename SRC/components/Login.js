@@ -1,6 +1,8 @@
 import { Button, Box, FormControl, Center, Input, WarningOutlineIcon, Heading, VStack } from "native-base";
 import axios from "axios";
 import { useState } from "react";
+import { Image } from "react-native";
+import logo from "SRC/images/logo.png";
 
 // Call API for employee login
 // const getEmployeeEmail = async (email, setEmployeeEmail) => {
@@ -14,7 +16,7 @@ const getEmployeeEmail = async (email) => {
         console.log(res.data);
         return res.data;
     } catch (error) {
-        console.warn("[getEmployeeEmail] Error: ", error);
+        console.error(error);
     }
 };
 
@@ -40,6 +42,11 @@ function Login({ navigation }) {
         
         if (employeeEmailExist) {
             navigation.navigate("Home");
+        } else if (email.email === undefined) {
+            setErrors({
+                ...errors,
+                email: "Employee email is required.",
+            });
         } else {
             setErrors({
                 ...errors,
@@ -53,6 +60,12 @@ function Login({ navigation }) {
 
     return (
         <Center w="100%">
+                <Image
+                    source={logo
+                    }
+                    alt="Rocket Elevators Logo"
+                    size="xs"
+                />
             <Box safeArea p="2" py="8" w="90%" maxW="290">
                 <Heading
                     alignSelf="center"
@@ -75,14 +88,23 @@ function Login({ navigation }) {
                 </Heading>
 
                 <VStack space={3} mt="5">
-                    <FormControl isRequired isInvalid={false}>
+                    <FormControl isRequired isInvalid={"email" in errors}>
                         <FormControl.Label>Employee email</FormControl.Label>
-                        <Input type="email" value={email} placeholder="email" onChangeText={newEmail => setEmail(newEmail)} />
-                        <FormControl.ErrorMessage
-                            leftIcon={<WarningOutlineIcon size="xs" />}
-                        >
-                            Please type a valid email.
-                        </FormControl.ErrorMessage>
+                        <Input
+                            type="email"
+                            value={email}
+                            placeholder="email"
+                            onChangeText={(value) =>
+                                setEmail({ ...email, email: value })
+                            }
+                        />
+                        {"email" in errors && (
+                            <FormControl.ErrorMessage
+                                leftIcon={<WarningOutlineIcon size="xs" />}
+                            >
+                                errors
+                            </FormControl.ErrorMessage>
+                        )}
                     </FormControl>
                     <Button onPress={onSubmit}>
                         {/* <Button mt="2" colorScheme="indigo" onPress={() => navigation.navigate("Home")}> */}

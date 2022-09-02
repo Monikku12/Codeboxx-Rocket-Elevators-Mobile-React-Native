@@ -5,7 +5,7 @@ import {
     Divider,
     Heading,
     Center,
-    HStack,
+    ZStack,
     Badge,
     PresenceTransition,
 } from "native-base";
@@ -25,27 +25,36 @@ const getElevatorData = async (elevatorID, setSelectedElevator) => {
     }
 };
 
-const putElevatorStatusActive = async (elevatorID, setSelectedElevator) => {
+const putElevatorStatusActive = async (elevatorID) => {
     try {
-        const res = await axios.put(
+        await axios.put(
             `https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/status/${elevatorID}`
         );
 
-        setSelectedElevator(res.data);
     } catch (error) {
         console.error(error);
     }
 };
+
 
 function ElevatorStatus({ route, navigation }) {
     const { elevatorID } = route.params;
     const [selectedElevator, setSelectedElevator] = useState({});
     const [isOperational, setIsOperational] = useState();
     const [isNonOperational, setIsNonOperational] = useState();
-
+    const isFocused = useIsFocused();
+    
     useEffect(() => {
+        console.log("useEffect operational");
         if (setSelectedElevator != "") {
             getElevatorData(elevatorID, setSelectedElevator);
+            }
+        }, []);
+        
+        
+    useEffect(() => {
+        console.log("useEffect deuxième");
+        if (selectedElevator != "") {
             if (selectedElevator.status == "Active") {
                 setIsOperational(true);
                 setIsNonOperational(false);
@@ -54,16 +63,11 @@ function ElevatorStatus({ route, navigation }) {
                 setIsNonOperational(true);
             }
         }
-    }, []);
-    
-    // useEffect(() => {
-        //     putElevatorStatusActive(elevatorID, setElevatorStatusActive);
-        // }, []);
+    }, [selectedElevator, isFocused]);
         
     const onSubmit = async () => {
         const statusUpdate = await putElevatorStatusActive(
-            elevatorID,
-            setSelectedElevator
+            elevatorID
         );
         const dataUpdate = await getElevatorData(
             elevatorID,
@@ -71,7 +75,8 @@ function ElevatorStatus({ route, navigation }) {
         );
     };
     console.log("Final status is ", selectedElevator.status);
-    
+
+
     return (
         <Center>
             <Box safeArea p="2" py="8" w="90%" maxW="290">
@@ -161,20 +166,17 @@ function ElevatorStatus({ route, navigation }) {
                     >
                         Last Inspection: {selectedElevator.last_inspection_date}
                     </Text>
-                    <Divider
-                        my="2"
-                        _light={{
-                            bg: "muted.800",
-                        }}
-                        _dark={{
-                            bg: "muted.50",
-                        }}
-                    />
-                    <HStack
-                        bold
-                        alignItems="center"
-                        flexDirection="row"
-                    >
+                </Box>
+                <Box
+                    _dark={{
+                        borderColor: "muted.50",
+                    }}
+                    borderColor="muted.800"
+                    pl={["0", "4"]}
+                    pr={["0", "5"]}
+                    py="2"
+                >
+                    <ZStack alignItems="center">
                         <PresenceTransition
                             visible={isOperational}
                             initial={{
@@ -191,10 +193,16 @@ function ElevatorStatus({ route, navigation }) {
                                 colorScheme="success"
                                 variant="solid"
                                 alignSelf="center"
-                                z-index="2"
                             >
                                 Operational
                             </Badge>
+                            <Button
+                                onPress={() =>
+                                    navigation.navigate("Home", refresh)
+                                }
+                            >
+                                Home
+                            </Button>
                         </PresenceTransition>
                         <PresenceTransition
                             visible={isNonOperational}
@@ -212,22 +220,18 @@ function ElevatorStatus({ route, navigation }) {
                                 colorScheme="danger"
                                 variant="solid"
                                 alignSelf="center"
-                                z-index="2"
                             >
                                 Non-operational
                             </Badge>
                             <Button onPress={onSubmit}>UPDATE STATUS</Button>
                         </PresenceTransition>
-                    </HStack>
+                    </ZStack>
                 </Box>
                 {/* <Button onPress={() => changeStatus}> */}
-                <Button onPress={() => navigation.navigate("Home")}>
-                    Home
-                </Button>
-                <Button onPress={() => navigation.navigate("Login")}>
+                {/* <Button onPress={() => navigation.navigate("Login")}>
                     Logout
                 </Button>
-                <Button onPress={() => navigation.goBack()}>Back</Button>
+                <Button onPress={() => navigation.goBack()}>Back</Button> */}
             </Box>
         </Center>
     );

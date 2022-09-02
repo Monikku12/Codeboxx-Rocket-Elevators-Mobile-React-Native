@@ -1,5 +1,4 @@
-// import { useTheme } from "react";
-// import { StatusBar } from 'expo-status-bar';
+
 import { StyleSheet, Text, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -7,6 +6,7 @@ import { NativeBaseProvider, Box } from "native-base";
 import Login from "./SRC/components/Login";
 import Home from "./SRC/components/Home";
 import ElevatorStatus from "./SRC/components/ElevatorStatus";
+import logo from "./SRC/images/logo.png";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +25,13 @@ function App() {
     return (
         <NativeBaseProvider>
             <NavigationContainer>
+                <Box>
+                    {/* <Image
+                        source={logo}
+                        alt="Rocket Elevators Logo"
+                        style={styles.logo}
+                    /> */}
+                </Box>
                 {/* <ColorPalete /> */}
                 <Stack.Navigator
                     screenOptions={{
@@ -63,6 +70,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    // logo: {
+    //     size: 10,
+    //     // width: 305,
+    //     // height: 159,
+    //     marginBottom: 10,
+    // },
 });
 
 export default App;

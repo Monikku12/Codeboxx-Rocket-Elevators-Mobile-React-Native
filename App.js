@@ -4,18 +4,14 @@ import { Image, StyleSheet } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Appbar, useTheme } from "react-native-paper";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Login from "./SRC/components/Login";
 import Home from "./SRC/components/Home";
 import ElevatorStatus from "./SRC/components/ElevatorStatus";
-import { Appbar, FAB, useTheme } from "react-native-paper";
-// import { AntDesign } from "@expo/vector-icons";
-// import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Stack = createNativeStackNavigator();
 const BOTTOM_APPBAR_HEIGHT = 80;
-const MEDIUM_FAB_HEIGHT = 56;
 
 function LogoTitle() {
     return (
@@ -31,7 +27,7 @@ function LogoTitle() {
     );
 }
 
-const BottomAppBar = () => {
+function BottomAppBar ({ navigation }) {
     const { bottom } = useSafeAreaInsets();
     const theme = useTheme();
 
@@ -49,15 +45,13 @@ const BottomAppBar = () => {
             <Appbar.BackAction
                 title="Back"
                 icon="arrow-left-circle-outline"
-                onPress={() => avigation.goBack()}
+                onPress={() => navigation.goBack()}
             />
             <Appbar.Content title={""} />
             <Appbar.Action
                 title="Logout"
                 icon="logout"
-                onPress={() => {
-                    Login;
-                }}
+                onPress={() => navigation.navigate(Login)}
             />
         </Appbar>
     );

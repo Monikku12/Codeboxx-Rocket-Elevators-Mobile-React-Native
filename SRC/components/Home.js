@@ -1,38 +1,30 @@
-import { Text } from "react-native";
+import { Text, ActivityIndicator } from "react-native";
 import { Button, Center, Box, Heading, FlatList, HStack, Avatar, VStack, Spacer } from "native-base";
 import axios from "axios";
 import { useState, useEffect, } from "react";
 import { useIsFocused } from "@react-navigation/native";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import Login from "./Login";
-
-// const Tab = createBottomTabNavigator();
 
 // Call API to get all inactive elevators
 const getInactiveElevators = async (setInactiveElevators) => {
     try {
-        const res = await axios.get("https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list");
+        const res = await axios.get(
+            "https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list"
+        );
 
         setInactiveElevators(res.data);
+        // setShow(false);
     } catch (error) {
         console.error(error);
     }
 };
 
-// function BottomNavigation() {
-//     return (
-//         <Tab.Navigator>
-//             <Tab.Screen name="Back" component={Login} />
-//             <Tab.Screen name="Logout" component={Login} />
-//         </Tab.Navigator>
-//     );
-// }
-
 function Home({ navigation }) {
     const [inactiveElevator, setInactiveElevators] = useState([]);
     const isFocused = useIsFocused();
+    // const [show, setShow] = useState(false);
 
     useEffect(() => {
+        // setShow(true);
         if (isFocused) {
             getInactiveElevators(setInactiveElevators);
         }
@@ -41,6 +33,7 @@ function Home({ navigation }) {
     return (
         <Center>
             <Box safeArea p="2" py="8" w="90%" maxW="290">
+                {/* <ActivityIndicator animating={show} /> */}
                 <Heading fontSize="xl" p="4" pb="3">
                     Inactive Elevators List
                 </Heading>
@@ -101,25 +94,7 @@ function Home({ navigation }) {
                     )}
                     keyExtractor={(item) => item.id}
                 />
-                {/* <Tab.Navigator>
-                    <Tab.Screen name="Back" component={Login} />
-                    <Tab.Screen name="Logout" component={Login} />
-                </Tab.Navigator> */}
-                {/* <Button
-                    style={{
-                        display: "fix",
-                        position: 'absolute',
-                        bottom: 0
-                    }}
-                    // justifyContent="left"
-                    // alignItems="center"
-                    // position="absolute"
-                    onPress={() => navigation.navigate("Login")}
-                >
-                    Logout
-                </Button> */}
             </Box>
-        {/* <BottomNavigation /> */}
         </Center>
     );
 }

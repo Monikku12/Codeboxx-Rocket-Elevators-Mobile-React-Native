@@ -1,8 +1,7 @@
 import { Button, Box, FormControl, Center, Input, WarningOutlineIcon, Heading, VStack } from "native-base";
 import axios from "axios";
 import { useState } from "react";
-import logo from "..//images/logo.png";
-import { Image } from "react-native";
+import { ActivityIndicator } from "react-native";
 
 // Call API for employee login
 const getEmployeeEmail = async (email) => {
@@ -18,10 +17,10 @@ const getEmployeeEmail = async (email) => {
 function Login({ navigation }) {
     const [errors, setErrors] = useState({});
     const [email, setEmail] = useState("");
+    const [show, setShow] = useState(false);
 
-    const onSubmit = async() => {
-        console.log("onSubmit");
-
+    const onSubmit = async () => {
+        setShow(true);
         if (email === "") {
             setErrors({
                 ...errors,
@@ -44,10 +43,7 @@ function Login({ navigation }) {
     return (
         <Center w="100%">
             <Box safeArea p="2" py="8" w="90%" maxW="290">
-                {/* <Image
-                    source={logo}
-                    alt="Rocket Elevators Logo"
-                /> */}
+                <ActivityIndicator animating={show} />
                 <Heading
                     alignSelf="center"
                     size="lg"

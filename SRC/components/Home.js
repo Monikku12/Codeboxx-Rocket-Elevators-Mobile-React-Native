@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
 import { Button, Center, Box, Heading, FlatList, HStack, Avatar, VStack, Spacer } from "native-base";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 // Call API to get all inactive elevators
 const getInactiveElevators = async (setInactiveElevators) => {
@@ -16,10 +17,13 @@ const getInactiveElevators = async (setInactiveElevators) => {
 
 function Home({ navigation }) {
     const [inactiveElevator, setInactiveElevators] = useState([]);
+    const isFocused = useIsFocused();
 
     useEffect(() => {
-        getInactiveElevators(setInactiveElevators);
-    }, []);
+        if (isFocused) {
+            getInactiveElevators(setInactiveElevators);
+        }
+    }, [isFocused]);
 
     return (
         <Center>
@@ -40,7 +44,10 @@ function Home({ navigation }) {
                             pr={["0", "5"]}
                             py="2"
                         >
-                            <HStack space={[2, 3]} justifyContent="space-between">
+                            <HStack
+                                space={[2, 3]}
+                                justifyContent="space-between"
+                            >
                                 <Avatar
                                     size="48px"
                                     source={{
@@ -67,14 +74,28 @@ function Home({ navigation }) {
                                     </Text>
                                 </VStack>
                                 <Spacer />
-                                <Button onPress={() => { navigation.navigate("ElevatorStatus", { elevatorID: item.id }); }}>Edit</Button>
+                                <Button
+                                    onPress={() => {
+                                        navigation.navigate("ElevatorStatus", {
+                                            elevatorID: item.id,
+                                        });
+                                    }}
+                                >
+                                    Edit
+                                </Button>
                             </HStack>
                         </Box>
                     )}
                     keyExtractor={(item) => item.id}
                 />
-                <Button onPress={() => navigation.navigate("Login")}>Logout</Button>
-                <Button onPress={() => navigation.goBack()}>Back</Button>
+                <Button
+                    justifyContent="bottom"
+                    alignItems="center"
+                    // position="absolute"
+                    onPress={() => navigation.navigate("Login")}
+                >
+                    Logout
+                </Button>
             </Box>
         </Center>
     );

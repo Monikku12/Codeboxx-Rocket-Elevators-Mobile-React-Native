@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
 import {
     Button,
     Box,
@@ -42,7 +42,6 @@ function ElevatorStatus({ route, navigation }) {
     const [selectedElevator, setSelectedElevator] = useState({});
     const [isOperational, setIsOperational] = useState();
     const [isNonOperational, setIsNonOperational] = useState();
-    const isFocused = useIsFocused();
     
     useEffect(() => {
         console.log("useEffect operational");
@@ -53,7 +52,6 @@ function ElevatorStatus({ route, navigation }) {
         
         
     useEffect(() => {
-        console.log("useEffect deuxième");
         if (selectedElevator != "") {
             if (selectedElevator.status == "Active") {
                 setIsOperational(true);
@@ -63,7 +61,7 @@ function ElevatorStatus({ route, navigation }) {
                 setIsNonOperational(true);
             }
         }
-    }, [selectedElevator, isFocused]);
+    }, [selectedElevator]);
         
     const onSubmit = async () => {
         const statusUpdate = await putElevatorStatusActive(
@@ -198,7 +196,7 @@ function ElevatorStatus({ route, navigation }) {
                             </Badge>
                             <Button
                                 onPress={() =>
-                                    navigation.navigate("Home", refresh)
+                                    navigation.navigate("Home")
                                 }
                             >
                                 Home
@@ -227,11 +225,24 @@ function ElevatorStatus({ route, navigation }) {
                         </PresenceTransition>
                     </ZStack>
                 </Box>
-                {/* <Button onPress={() => changeStatus}> */}
-                {/* <Button onPress={() => navigation.navigate("Login")}>
-                    Logout
-                </Button>
-                <Button onPress={() => navigation.goBack()}>Back</Button> */}
+                <Box
+                    _dark={{
+                        borderColor: "muted.50",
+                    }}
+                    borderColor="muted.800"
+                    pl={["0", "4"]}
+                    pr={["0", "5"]}
+                    py="2"
+                >
+                    <Button
+                        justifyContent="bottom"
+                        alignItems="center"
+                        position="absolute"
+                        onPress={() => navigation.navigate("Login")}
+                    >
+                        Logout
+                    </Button>
+                </Box>
             </Box>
         </Center>
     );

@@ -22,21 +22,24 @@ function Login({ navigation }) {
 
     const onSubmit = async() => {
         console.log("onSubmit");
-        const employeeEmailExist = await getEmployeeEmail(email);
-        console.log("EmployeeEmailExist: ", employeeEmailExist);
-        
-        if (employeeEmailExist) {
-            navigation.navigate("Home");
-        } else if (email === undefined) {
+
+        if (email === "") {
             setErrors({
                 ...errors,
                 email: "Employee email is required.",
             });
         } else {
-            setErrors({
-                ...errors,
-                email: "The email entered is not the email of a listed agent.",
-            });
+            const employeeEmailExist = await getEmployeeEmail(email);
+            console.log("EmployeeEmailExist: ", employeeEmailExist);
+
+            if (employeeEmailExist) {
+                navigation.navigate("Home");
+            } else {
+                setErrors({
+                    ...errors,
+                    email: "The email entered is not the email of a listed agent.",
+                });
+            }
         }
     };
 
@@ -76,7 +79,7 @@ function Login({ navigation }) {
                             <FormControl.ErrorMessage
                                 leftIcon={<WarningOutlineIcon size="xs" />}
                             >
-                                errors
+                                {errors.email}
                             </FormControl.ErrorMessage>
                         )}
                     </FormControl>

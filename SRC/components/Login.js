@@ -1,13 +1,14 @@
 import { Button, Box, FormControl, Center, Input, WarningOutlineIcon, Heading, VStack } from "native-base";
 import axios from "axios";
 import { useState } from "react";
+import logo from "..//images/logo.png";
+import { Image } from "react-native";
 
 // Call API for employee login
 const getEmployeeEmail = async (email) => {
     try {
         const res = await axios.get(`https://rocketelevatorsrestapimonique.herokuapp.com/api/Employees?email=${email}`);
 
-        console.log(res.data);
         return res.data;
     } catch (error) {
         console.error(error);
@@ -17,8 +18,6 @@ const getEmployeeEmail = async (email) => {
 function Login({ navigation }) {
     const [errors, setErrors] = useState({});
     const [email, setEmail] = useState("");
-
-    console.log("email is ", email);
 
     const onSubmit = async() => {
         console.log("onSubmit");
@@ -30,7 +29,6 @@ function Login({ navigation }) {
             });
         } else {
             const employeeEmailExist = await getEmployeeEmail(email);
-            console.log("EmployeeEmailExist: ", employeeEmailExist);
 
             if (employeeEmailExist) {
                 navigation.navigate("Home");
@@ -46,6 +44,10 @@ function Login({ navigation }) {
     return (
         <Center w="100%">
             <Box safeArea p="2" py="8" w="90%" maxW="290">
+                {/* <Image
+                    source={logo}
+                    alt="Rocket Elevators Logo"
+                /> */}
                 <Heading
                     alignSelf="center"
                     size="lg"

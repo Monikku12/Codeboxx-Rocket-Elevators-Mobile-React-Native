@@ -3,6 +3,10 @@ import { Button, Center, Box, Heading, FlatList, HStack, Avatar, VStack, Spacer 
 import axios from "axios";
 import { useState, useEffect, } from "react";
 import { useIsFocused } from "@react-navigation/native";
+// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import Login from "./Login";
+
+// const Tab = createBottomTabNavigator();
 
 // Call API to get all inactive elevators
 const getInactiveElevators = async (setInactiveElevators) => {
@@ -14,6 +18,15 @@ const getInactiveElevators = async (setInactiveElevators) => {
         console.error(error);
     }
 };
+
+// function BottomNavigation() {
+//     return (
+//         <Tab.Navigator>
+//             <Tab.Screen name="Back" component={Login} />
+//             <Tab.Screen name="Logout" component={Login} />
+//         </Tab.Navigator>
+//     );
+// }
 
 function Home({ navigation }) {
     const [inactiveElevator, setInactiveElevators] = useState([]);
@@ -88,15 +101,25 @@ function Home({ navigation }) {
                     )}
                     keyExtractor={(item) => item.id}
                 />
-                <Button
-                    justifyContent="bottom"
-                    alignItems="center"
+                {/* <Tab.Navigator>
+                    <Tab.Screen name="Back" component={Login} />
+                    <Tab.Screen name="Logout" component={Login} />
+                </Tab.Navigator> */}
+                {/* <Button
+                    style={{
+                        display: "fix",
+                        position: 'absolute',
+                        bottom: 0
+                    }}
+                    // justifyContent="left"
+                    // alignItems="center"
                     // position="absolute"
                     onPress={() => navigation.navigate("Login")}
                 >
                     Logout
-                </Button>
+                </Button> */}
             </Box>
+        {/* <BottomNavigation /> */}
         </Center>
     );
 }

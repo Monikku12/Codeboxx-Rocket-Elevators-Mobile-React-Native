@@ -44,7 +44,6 @@ function ElevatorStatus({ route, navigation }) {
     const [isNonOperational, setIsNonOperational] = useState();
     
     useEffect(() => {
-        console.log("useEffect operational");
         if (setSelectedElevator != "") {
             getElevatorData(elevatorID, setSelectedElevator);
             }
@@ -72,8 +71,6 @@ function ElevatorStatus({ route, navigation }) {
             setSelectedElevator
         );
     };
-    console.log("Final status is ", selectedElevator.status);
-
 
     return (
         <Center>
@@ -225,7 +222,7 @@ function ElevatorStatus({ route, navigation }) {
                         </PresenceTransition>
                     </ZStack>
                 </Box>
-                <Box
+                {/* <Box
                     _dark={{
                         borderColor: "muted.50",
                     }}
@@ -242,7 +239,7 @@ function ElevatorStatus({ route, navigation }) {
                     >
                         Logout
                     </Button>
-                </Box>
+                </Box> */}
             </Box>
         </Center>
     );

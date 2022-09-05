@@ -1,7 +1,8 @@
 import { Button, Box, FormControl, Center, Input, WarningOutlineIcon, Heading, VStack } from "native-base";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ActivityIndicator } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
 // Call API for employee login
 const getEmployeeEmail = async (email) => {
@@ -18,6 +19,13 @@ function Login({ navigation }) {
     const [errors, setErrors] = useState({});
     const [email, setEmail] = useState("");
     const [show, setShow] = useState(false);
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        if (isFocused) {
+            setShow(false);
+        }
+    }, [isFocused]);
 
     const onSubmit = async () => {
         setShow(true);

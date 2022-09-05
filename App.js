@@ -2,7 +2,7 @@
 import React from 'react';
 import { Image, StyleSheet } from "react-native";
 import { NativeBaseProvider } from "native-base";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Appbar, useTheme } from "react-native-paper";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -27,9 +27,10 @@ function LogoTitle() {
     );
 }
 
-function BottomAppBar ({ navigation }) {
+function BottomAppBar() {
     const { bottom } = useSafeAreaInsets();
     const theme = useTheme();
+    const navigation = useNavigation();
 
     return (
         <Appbar
@@ -42,7 +43,7 @@ function BottomAppBar ({ navigation }) {
             ]}
             safeAreaInsets={{ bottom }}
         >
-            <Appbar.BackAction
+            <Appbar.Action
                 title="Back"
                 icon="arrow-left-circle-outline"
                 onPress={() => navigation.goBack()}

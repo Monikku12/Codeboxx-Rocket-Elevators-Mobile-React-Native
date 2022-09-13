@@ -7,7 +7,7 @@ import { useIsFocused } from "@react-navigation/native";
 // Call API for employee login
 const getEmployeeEmail = async (email) => {
     try {
-        const res = await axios.get(`https://rocketelevatorsrestapimonique.herokuapp.com/api/Employees?email=${email}`);
+        const res = await axios.get(`https://moniquerestapi.herokuapp.com/api/Employees?email=${email}`);
 
         return res.data;
     } catch (error) {

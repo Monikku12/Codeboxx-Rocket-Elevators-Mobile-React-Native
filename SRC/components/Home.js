@@ -8,7 +8,7 @@ import { useIsFocused } from "@react-navigation/native";
 const getInactiveElevators = async (setInactiveElevators) => {
     try {
         const res = await axios.get(
-            "https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/list"
+            "https://moniquerestapi.herokuapp.com/api/Elevators/list"
         );
 
         setInactiveElevators(res.data);

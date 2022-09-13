@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 const getElevatorData = async (elevatorID, setSelectedElevator) => {
     try {
         const res = await axios.get(
-            `https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/${elevatorID}`
+            `https://moniquerestapi.herokuapp.com/api/Elevators/${elevatorID}`
         );
 
         setSelectedElevator(res.data);
@@ -28,7 +28,7 @@ const getElevatorData = async (elevatorID, setSelectedElevator) => {
 const putElevatorStatusActive = async (elevatorID) => {
     try {
         await axios.put(
-            `https://rocketelevatorsrestapimonique.herokuapp.com/api/Elevators/status/${elevatorID}`
+            `https://moniquerestapi.herokuapp.com/api/Elevators/status/${elevatorID}`
         );
 
     } catch (error) {
